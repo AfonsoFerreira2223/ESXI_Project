@@ -16,7 +16,7 @@
 
 ## ----------------------------
 
-### Criar switches virtuais para a dmz e para o inside, e criar prot groups para ambos
+### Create the Switches and port groups on VMware ESXi according to what your network will look like
 
 ## ----------------------------
 
