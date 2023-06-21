@@ -7,8 +7,11 @@
 ### Criar 4 máquinas:
 
 > 1 Linux that will act as the router
+> 
 > 1 Linux that will act as a server on a DMZ
+> 
 > 1 windows that will be an inside machine
+> 
 > 1 more Linux router that will act as a failover for DHCP and DNS services
 
 ## ----------------------------
