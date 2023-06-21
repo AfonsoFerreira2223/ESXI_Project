@@ -109,6 +109,11 @@
 
 
 
+## ----------------------------
 
+
+> Once the congiruation for the router as ended, it's possible to access its terminal by using some ssh software such as Termius. Don't forget to add port 22 to the firewall rules once they are created.
+> 
+> Just put the interface IP facing the internet, and username and password.
 
 
