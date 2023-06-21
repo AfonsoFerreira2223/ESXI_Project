@@ -14,22 +14,22 @@
 
 
 
-<RTR_1:
+<RTR_1:>
 
-4 GB de armazenamento
+<4 GB de armazenamento>
 
-768 de memoria
+<768 de memoria>
 
-thin provisioned 
+<thin provisioned>
 
-SSD image of debian 10
+<SSD image of debian 10>
 
-tres network interfaces, 192 facing outwards com IP 192.168.15.0/24
+<tres network interfaces, 192 facing outwards com IP 192.168.15.0/24>
 
-224 para inside windows com IP 192.168.31.0/24
+<224 para inside windows com IP 192.168.31.0/24>
 
-256 para dmz com IP 172.31.0.0/24
+<256 para dmz com IP 172.31.0.0/24>
 
 
-During installation, debian disk was partitioned with LV>
+<During installation, debian disk was partitioned with LV>
 
