@@ -15,23 +15,28 @@
 
 
 
-<details>
-  <summary>RTR_1 Configuration</summary>
-Storage: 4 GB of storage
-Memory: 768 MB
-Provisioning: Thin provisioned
-Operating System: Debian 10 (SSD image)
-Network Interfaces:
-
-Interface 1 (facing outward):
-IP: 192.168.15.0/24
-Interface 2 (inside - Windows network):
-IP: 192.168.31.0/24
-Interface 3 (DMZ):
-IP: 172.31.0.0/24
-Disk Partitioning:
-
-During installation, the Debian disk was partitioned with Logical Volume (LV).
-
-</details>
+> <details>
+>   <summary>RTR_1 Configuration</summary>
+>   
+>   - **Storage**: 4 GB of storage
+>   - **Memory**: 768 MB
+>   - **Provisioning**: Thin provisioned
+>   - **Operating System**: Debian 10 (SSD image)
+>   
+>   **Network Interfaces:**
+>   
+>   - Interface 1 (facing outward):
+>     - IP: 192.168.15.0/24
+>     
+>   - Interface 2 (inside - Windows network):
+>     - IP: 192.168.31.0/24
+>     
+>   - Interface 3 (DMZ):
+>     - IP: 172.31.0.0/24
+>     
+>   **Disk Partitioning:**
+>   
+>   During installation, the Debian disk was partitioned with Logical Volume (LV).
+>   
+> </details>
 
