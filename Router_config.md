@@ -24,12 +24,20 @@ Go to esxi- edit- then pick the connect box on the datasotre iso section (this i
 Configuring the interfaces on router:
 
 
-nano /etc/network/interfaces
+> nano /etc/network/interfaces
 
 CTRL K all
 
-copy paste this, after altering the Ip address to suit your defined ranges
+copy paste this, after altering the Ip address to suit your defined ranges:
 
+
+
+
+
+<details>
+  <summary>Network Interfaces Configuration</summary>
+
+```
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
 
@@ -48,9 +56,6 @@ iface ens192 inet static
         dns-nameservers 8.8.8.8
         dns-search enta.pt
 
-
-
-
 # Inside network interface
 allow-hotplug ens224
 iface ens224 inet static
@@ -58,14 +63,18 @@ iface ens224 inet static
         # dns-* options are implemented by the resolvconf package, if installed
         dns-search enta.pt
 
-
 # DMZ network interface
 allow-hotplug ens256
 iface ens256 inet static
         address 172.31.0.1/24
         # dns-* options are implemented by the resolvconf package, if installed
         dns-search enta.pt
+```
 
+</details>
+
+
+## -----------------------------
 
 
 > ip a
