@@ -38,6 +38,9 @@
 ### Create two virtual switches as well, and assign them to port groups >inside< and >dmz<
 
 
+### >outside< is connected to switchv0, which is the one with internet access
+
+
 ## ----------------------------
 
 
@@ -103,6 +106,8 @@
 >   - Interface: 224
 >   
 > </details>
+
+
 
 
 
