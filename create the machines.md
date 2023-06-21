@@ -18,17 +18,15 @@
 
 ### Create the Switches and port groups on VMware ESXi according to what your network will look like
 
-## ----------------------------
+#### Router:
 
-### Diferença entre thing provision e thick provision:
+![Alt Text](https://lh3.googleusercontent.com/pw/AJFCJaUe2bbpxypdEKJm4LjCNIfU5vouqyE99oHAglvrP02uhxjB6dVOl5BDt7fXHoYzA5WzCzi_GMCivrkeMklyhzVT8IiAm6FAri7DRvXy3dY9gaIc4l-bFJiNKSV6XO94S-yI1J-zTc-0y1PJaRf3zn_L4kvBSb5_gk1zXaanqCed9OpVIVPutim9atJ0qIFssree4Np6oaSQz3FHHM9xcIH4OKAdUgrcwg-nC_3OqHjToDAT-XywdKRFQzf94Q3xqM_604zUpJa2I8IHC6NgsbrODTZXJj47o5vwlo2_LwVEb0cjDqiQAJ15geiOTNy14PHgUPlxiuK6iEc2VXxD4tFjYWx3hzg5bdAxdI1qHZcF1BikxIhe_ZgOfDOJR9VHd5ZM5EU8UhOIr1s7WGB8SKPEhvNVHmAG3qHSJZnoOtb5kGLHq62ySVnj-vhlTIfCc410hBHytwOYN4L9mod_fEyvqRCP2YiR454Va3sJ0aSj9JP9LoNQxGYCVSEYQO8gBv5bR84g6OB1bVxTnN_nPx7T1j7DhhzIKsx8yK66uvT1KJ_tMbSZFh1_BTNuwjY4RR68H0Oy71FRdqtEAgCgWvvorHWPEwQpuEgCn7xvtyVDpDLOoXlEg4zWjCncG8uu8TSJGyfUJFQTA_UK_qnW9TVvhBWgb7KLrjj7zzCoL1xt21CwT-28V5bZCv9DJlj6BiJfDpxJm_jsjsdVIA3RmozGed9rl3V9APfJEDIgh7gzO7Y4u_DRF6-m4GiSkMIfShyCXOmE0tSt8ih7uaZ91vOsJYhUR3N9jcXzpAUbfuqrBI9fYxpWn_UksiKfRkoOfLB_CIqoeJUpoGarDhJMRdqCtjJIH-Y5JcTFXf5GkmIV_u0_JhVpK-QvJ8YO00aY3H1B9-CXMJX7H-nTNDtgaSlh=w1542-h624-s-no?authuser=0)
 
 
-HIN disk provision- Cria um disco com mais memoria do que e possivel. Por exemplo, cada pessoa na sala pode usar um disco THIN de 1 terra. No total dá 10 terras. O disco só tem 5 terras. Se cada um nao usar de mais, consegue.
-
-THICK- lazy zeroed nao apaga a data que ja esta no disco, o eagered apaga tudo de uma vez.
 
 
 ## ----------------------------
+
 
 > <details>
 >   <summary>RTR_1 Configuration</summary>
