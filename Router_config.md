@@ -23,9 +23,9 @@ Go to esxi- edit- then pick the connect box on the datasotre iso section (this i
 
 Configuring the interfaces on router:
 
-´´´
+```
 nano /etc/network/interfaces
-´´´
+```
 
 Once you are here, copy paste this (alter the Ip addresses to suit your defined ranges):
 
@@ -74,11 +74,9 @@ iface ens256 inet static
 ## -----------------------------
 
 ```
-
 systemctl restart networking
 reboot
 ip a
-
 ```
 
 
@@ -92,7 +90,7 @@ Make sure to note down the MAC addresses of your interfaces and match them with 
 
 Enable IP forwarding by editing the `/etc/sysctl.conf` file. Uncomment the following line:
 
-net.ipv4.ip_forward=1
+> net.ipv4.ip_forward=1
 
 
 Then verify the changes by running the command:
@@ -100,22 +98,22 @@ Then verify the changes by running the command:
 sysctl -p
 ```
 
-7. Install the DHCP server package by running the following command:
+Install the DHCP server package by running the following command:
 ```
 apt install -y isc-dhcp-server
 ```
 
-8. Edit the DHCP server configuration file `/etc/dhcp/dhcpd.conf`. Change the domain name to your desired value using the following line:
+Edit the DHCP server configuration file `/etc/dhcp/dhcpd.conf`. Change the domain name to your desired value using the following line:
 ```
 option domain-name "your_domain_name";
 ```
 
-9. Specify the IP addresses of the domain name servers and interfaces by adding the following line:
+Specify the IP addresses of the domain name servers and interfaces by adding the following line:
 ```
-option domain-name-servers <YOUR IP addresses>;
+option domain-name-servers ´YOUR IP addresses´;
 ```
 
-10. Add the HMAC-MD5 key for secure DHCP updates by inserting the following lines:
+Add the HMAC-MD5 key for secure DHCP updates by inserting the following lines:
 ```
 key DHCP_UPDATER {
     algorithm HMAC-MD5.SIG-ALG.REG.INT;
