@@ -26,11 +26,7 @@ Configuring the interfaces on router:
 
 > nano /etc/network/interfaces
 
-CTRL K all
-
-copy paste this, after altering the Ip address to suit your defined ranges:
-
-
+Once you are here, copy paste this (alter the Ip addresses to suit your defined ranges):
 
 
 
