@@ -27,7 +27,6 @@ First of all, make sure you can download packages:
 
 ```
 apt-cdrom add
-
 ```
 
 Now go to
