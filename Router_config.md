@@ -64,13 +64,13 @@ deb-src http://security.debian.org/debian-security bullseye-security main contri
 
 
 
-
+Now update the machine
 
 
 
 ```
 apt update
-apt install resolvconf
+apt upgrade
 
 ```
 
@@ -179,7 +179,8 @@ key DHCP_UPDATER {
 };
 ```
 
-11. Configure DHCP for each subnet by adding the appropriate subnet configuration. Here's an example for `192.168.31.0/24`:
+
+Configure DHCP for each subnet by adding the appropriate subnet configuration. Here's an example for `192.168.31.0/24`:
 ```
 subnet 192.168.31.0 netmask 255.255.255.0 {
     range 192.168.31.128 192.168.31.191;
@@ -201,6 +202,122 @@ INTERFACESv4="(Include the names of your desired interfaces)"
 In this case, I am using interfaces ens192, 224 and 256
 
 
+## Configuring NFtables
+
+```
+nano /etc/nftables.conf
+```
+
+Configure the nftables appropriately
+
+An example would be:
+
+```
+table ip filter {
+        chain INPUT {
+                type filter hook input priority filter; policy drop;
+                iifname "lo" counter packets 14 bytes 1160 accept
+                tcp dport { 22, 80, 443, 2222, 3389 } ct state established,related,new counter packets 3194 bytes 277452 accept
+                icmp type echo-reply ct state established,related counter packets 6 bytes 504 accept
+                ip saddr 172.31.0.0/30 icmp type echo-request ct state established,related,new counter packets 13 bytes 1092 accept
+                iifname "ens224" icmp type echo-request ct state established,related,new counter packets 2 bytes 120 accept
+                meta l4proto tcp ct state established,related counter packets 4 bytes 786 accept
+                meta l4proto udp ct state established,related counter packets 3 bytes 282 accept
+                limit rate 30/minute counter packets 613 bytes 129009 log prefix "IPT:INP:Denied: " level debug
+                iifname "lo" counter packets 0 bytes 0 accept
+                tcp dport { 22, 80, 443, 2222, 3389 } ct state established,related,new counter packets 0 bytes 0 accept
+                icmp type echo-reply ct state established,related counter packets 0 bytes 0 accept
+                ip saddr 172.31.0.0/30 icmp type echo-request ct state established,related,new counter packets 0 bytes 0 accept
+                iifname "ens224" icmp type echo-request ct state established,related,new counter packets 0 bytes 0 accept
+                ct state established,related counter packets 0 bytes 0 accept
+                ct state established,related counter packets 0 bytes 0 accept
+                limit rate 30/minute counter packets 283 bytes 25016 log prefix "IPT:INP:Denied: " level debug
+                iifname "ens256" udp sport 68 udp dport 67 counter packets 2 bytes 656 accept
+                iifname "ens224" udp sport 68 udp dport 67 counter packets 2 bytes 688 accept
+                iifname { "ens224", "ens256" } udp dport 53 ct state established,related,new counter packets 0 bytes 0 accept
+                counter packets 1866 bytes 221533 reject
+        }
+
+        chain FORWARD {
+                type filter hook forward priority filter; policy accept;
+                iifname "ens192" oifname "ens256" tcp dport { 80, 443 } ct state established,related,new counter packets 47 bytes 5991 accept
+                iifname "ens256" oifname "ens192" tcp sport { 80, 443 } ct state established,related counter packets 35 bytes 24314 accept
+                iifname "ens224" oifname "ens256" tcp dport { 20, 21, 22, 80, 443 } ct state established,related,new counter packets 13 bytes 1085 accept
+                iifname "ens256" oifname "ens224" tcp sport { 20, 21, 22, 80, 443 } ct state established,related counter packets 11 bytes 3868 accept
+                iifname "ens224" oifname "ens256" icmp type echo-request ct state established,related,new counter packets 4 bytes 240 accept
+                iifname "ens256" oifname "ens224" icmp type echo-reply ct state established,related counter packets 4 bytes 240 accept
+                iifname "ens224" oifname "ens192" tcp dport { 22, 80, 443 } ct state established,related,new counter packets 5816 bytes 612532 accept
+                iifname "ens192" oifname "ens224" tcp sport { 22, 80, 443 } ct state established,related counter packets 7907 bytes 11780790 accept
+                iifname "ens224" oifname "ens192" icmp type echo-request ct state established,related,new counter packets 2 bytes 120 accept
+                iifname "ens192" oifname "ens224" icmp type echo-reply ct state established,related counter packets 2 bytes 120 accept
+                iifname "ens256" oifname "ens192" icmp type echo-request ct state established,related,new counter packets 6 bytes 504 accept
+                iifname "ens192" oifname "ens256" icmp type echo-reply ct state established,related counter packets 6 bytes 504 accept
+                iifname "ens224" oifname "ens192" udp dport { 53, 443 } ct state established,related,new counter packets 110 bytes 14236 accept
+                iifname "ens192" oifname "ens224" udp sport { 53, 443 } ct state established,related counter packets 126 bytes 32073 accept
+                limit rate 30/minute counter packets 42 bytes 2884 log prefix "IPT:INP:Denied: " level debug
+                iifname "ens192" oifname "ens256" tcp dport { 80, 443 } ct state established,related,new counter packets 0 bytes 0 accept
+                iifname "ens256" oifname "ens192" tcp sport { 80, 443 } ct state established,related counter packets 0 bytes 0 accept
+                iifname "ens224" oifname "ens256" tcp dport { 20, 21, 22, 80, 443 } ct state established,related,new counter packets 0 bytes 0 accept
+                iifname "ens256" oifname "ens224" tcp sport { 20, 21, 22, 80, 443 } ct state established,related counter packets 0 bytes 0 accept
+                iifname "ens224" oifname "ens256" icmp type echo-request ct state established,related,new counter packets 0 bytes 0 accept
+                iifname "ens256" oifname "ens224" icmp type echo-reply ct state established,related counter packets 0 bytes 0 accept
+                iifname "ens224" oifname "ens192" tcp dport { 22, 80, 443 } ct state established,related,new counter packets 0 bytes 0 accept
+                iifname "ens192" oifname "ens224" tcp sport { 22, 80, 443 } ct state established,related counter packets 0 bytes 0 accept
+                iifname "ens224" oifname "ens192" icmp type echo-request ct state established,related,new counter packets 0 bytes 0 accept
+                iifname "ens192" oifname "ens224" icmp type echo-reply ct state established,related counter packets 0 bytes 0 accept
+                iifname "ens256" oifname "ens192" icmp type echo-request ct state established,related,new counter packets 0 bytes 0 accept
+                iifname "ens192" oifname "ens256" icmp type echo-reply ct state established,related counter packets 0 bytes 0 accept
+                iifname "ens224" oifname "ens192" udp dport { 53, 443 } ct state established,related,new counter packets 0 bytes 0 accept
+                iifname "ens192" oifname "ens224" udp sport { 53, 443 } ct state established,related counter packets 0 bytes 0 accept
+                limit rate 30/minute counter packets 0 bytes 0 log prefix "IPT:INP:Denied: " level debug
+                counter packets 0 bytes 0 reject
+        }
+
+        chain OUTPUT {
+                type filter hook output priority filter; policy accept;
+                oifname "lo" counter packets 14 bytes 1160 accept
+                icmp type echo-request ct state established,related,new counter packets 6 bytes 504 accept
+                meta l4proto tcp ct state established,related,new counter packets 2774 bytes 485222 accept
+                meta l4proto udp ct state established,related,new counter packets 9 bytes 1624 accept
+                limit rate 30/minute counter packets 355 bytes 33853 log prefix "IPT:INP:Denied: " level debug
+                oifname "lo" counter packets 0 bytes 0 accept
+                icmp type echo-request ct state established,related,new counter packets 0 bytes 0 accept
+                ct state established,related,new counter packets 764 bytes 73718 accept
+                ct state established,related,new counter packets 0 bytes 0 accept
+                limit rate 30/minute counter packets 0 bytes 0 log prefix "IPT:INP:Denied: " level debug
+                oifname "ens224" udp sport 68 udp dport 67 counter packets 0 bytes 0 accept
+                oifname "ens256" udp sport 68 udp dport 67 counter packets 0 bytes 0 accept
+                oifname { "ens224", "ens256" } udp sport 53 ct state established,related counter packets 0 bytes 0 accept
+                counter packets 78 bytes 7120 reject
+
+        }
+}
+table ip nat {
+        chain PREROUTING {
+                type nat hook prerouting priority dstnat; policy accept;
+                iifname "ens192" tcp dport { 80, 443 } counter packets 6 bytes 360 dnat to 172.31.0.2
+                iifname "ens192" tcp dport 2222 counter packets 0 bytes 0 dnat to 172.31.0.2:22
+                iifname "ens192" tcp dport 3389 counter packets 0 bytes 0 dnat to 192.168.31.2
+                iifname "ens192" tcp dport { 80, 443 } counter packets 0 bytes 0 dnat to 172.31.0.2
+                iifname "ens192" tcp dport 2222 counter packets 0 bytes 0 dnat to 172.31.0.2:22
+                iifname "ens192" tcp dport 3389 counter packets 0 bytes 0 dnat to 192.168.31.2
+        }
+
+        chain INPUT {
+                type nat hook input priority 100; policy accept;
+        }
+
+        chain OUTPUT {
+                type nat hook output priority -100; policy accept;
+        }
+
+        chain POSTROUTING {
+                type nat hook postrouting priority srcnat; policy accept;
+                oifname "ens192" counter packets 93 bytes 8000 masquerade
+                oifname "ens192" counter packets 0 bytes 0 masquerade
+        }
+}
+```
 
 
 
