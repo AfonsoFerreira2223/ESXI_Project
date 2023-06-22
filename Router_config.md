@@ -80,4 +80,6 @@ iface ens256 inet static
 
 Your interfaces should now have the respective IP add assigned to them
 
-!alt[image](https://mail.google.com/mail/u/0?ui=2&ik=c3415e6fdd&attid=0.1&permmsgid=msg-a:r-1599343331034313875&th=188e28f4a2556c86&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ_zx_ShBmvvrA40T7rj3MnuZ9uBqKvPEX8sbeVEWxFPSysDbMAqDuNKkbYoFO4CnHcvZnnfeEtEEXvvleqP935zQRt0cKlVWgjAKAPzU_mkPxnK4qfSQnNkjsc&disp=emb&realattid=ii_lj6z6zcm0)
+![Captura de ecrã de 2023-06-22 10-03-27](https://github.com/AfonsoFerreira2223/ESXI_Project/assets/114146560/a7e9c44d-a21c-444c-8887-fbd67bd0335a)
+
+
