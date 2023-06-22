@@ -80,4 +80,4 @@ iface ens256 inet static
 
 Your interfaces should now have the respective IP add assigned to them
 
-![image](https://mail.google.com/mail/u/0?ui=2&ik=c3415e6fdd&attid=0.1&permmsgid=msg-a:r-1599343331034313875&th=188e28f4a2556c86&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ_zx_ShBmvvrA40T7rj3MnuZ9uBqKvPEX8sbeVEWxFPSysDbMAqDuNKkbYoFO4CnHcvZnnfeEtEEXvvleqP935zQRt0cKlVWgjAKAPzU_mkPxnK4qfSQnNkjsc&disp=emb&realattid=ii_lj6z6zcm0)
+!alt[image](https://mail.google.com/mail/u/0?ui=2&ik=c3415e6fdd&attid=0.1&permmsgid=msg-a:r-1599343331034313875&th=188e28f4a2556c86&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ_zx_ShBmvvrA40T7rj3MnuZ9uBqKvPEX8sbeVEWxFPSysDbMAqDuNKkbYoFO4CnHcvZnnfeEtEEXvvleqP935zQRt0cKlVWgjAKAPzU_mkPxnK4qfSQnNkjsc&disp=emb&realattid=ii_lj6z6zcm0)
