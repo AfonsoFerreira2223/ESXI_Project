@@ -1,16 +1,20 @@
 # Router configuration:
 
 
-> su -
+You can go to root as most commands here require high-level permissions
 
-Go to root as most commands here require high-level permissions
+```
+su -
+```
 
 ## -----------------------------
 
-> apt update
-> apt install resolvconf
+```
+apt update
+apt install resolvconf
+```
 
-If it asks to insert the disk:
+It may ask you to insert the CD-ROM in order to download the packages
 
 Go to esxi- edit- then pick the connect box on the datasotre iso section (this is where the package is included)
 
@@ -21,13 +25,13 @@ Go to esxi- edit- then pick the connect box on the datasotre iso section (this i
 ## -----------------------------
 
 
-Configuring the interfaces on router:
+Configuring the interfaces on the router:
 
 ```
 nano /etc/network/interfaces
 ```
 
-Once you are here, copy paste this (alter the Ip addresses to suit your defined ranges):
+Once you are here, copy and paste this (alter the Ip addresses to suit your defined ranges):
 
 
 
