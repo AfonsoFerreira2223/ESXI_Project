@@ -523,3 +523,43 @@ search enta.pt
 ## Easy-RSA
 
 
+```
+apt install easy-rsa
+```
+
+```
+cd /etc/easy-rsa/
+cp vars.example vars
+nano vars
+```
+
+Once you open vars, do the following changes:
+
+> Change set_var EASYRSA_DN "cn_only" to "org"
+
+![Captura de ecrã de 2023-06-22 12-14-47](https://github.com/AfonsoFerreira2223/ESXI_Project/assets/114146560/fbba8a6b-cb70-43ab-a463-aa2bd16213b8)
+
+
+Set the variables according to your domain
+
+
+Now to create the certificates run the following commands
+
+
+```
+./easyrsa init-pki
+./easyrsa build-ca nopass
+./easyrsa --subject-alt-name=DNS:enta.pt gen-req enta.pt nopass
+./easyrsa --subject-alt-name=DNS:enta.pt sign-req server enta.pt nopass
+./easyrsa --subject-alt-name="DNS:www.enta.pt" gen-req www.enta.pt nopass
+./easyrsa --subject-alt-name="DNS:smpt.enta.pt" gen-req smtp.enta.pt nopass
+./easyrsa --subject-alt-name="DNS:pop.enta.pt" gen-req pop.enta.pt nopass
+./easyrsa sign-req server www.enta.pt
+./easyrsa sign-req server pop.enta.pt
+./easyrsa sign-req server smtp.enta.pt
+scp pki/issued/www.enta.pt.crt  afonsodmz@172.31.0.100
+```
+
+Replace the <afonsodmz@Ip> with your dmz name and IP address
+
+
