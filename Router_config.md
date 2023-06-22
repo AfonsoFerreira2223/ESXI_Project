@@ -114,7 +114,7 @@ option domain-name "your_domain_name";
 
 Specify the IP addresses of the domain name servers and interfaces by adding the following line:
 ```
-option domain-name-servers ´YOUR IP addresses´;
+option domain-name-servers `YOUR IP addresses`;
 ```
 
 Add the HMAC-MD5 key for secure DHCP updates by inserting the following lines:
