@@ -86,12 +86,12 @@ Your interfaces should now have the respective IP add assigned to them
 Make sure to note down the MAC addresses of your interfaces and match them with the correct IP addresses in the ESXi configuration.
 
 
-## Enable IP forwarding by editing the `/etc/sysctl.conf` file. Add the following line:
+Enable IP forwarding by editing the `/etc/sysctl.conf` file. Uncomment the following line:
 
 net.ipv4.ip_forward=1
 
 
-Then apply the changes by running the command:
+Then verify the changes by running the command:
 ```
 sysctl -p
 ```
@@ -108,9 +108,8 @@ option domain-name "your_domain_name";
 
 9. Specify the IP addresses of the domain name servers and interfaces by adding the following line:
 ```
-option domain-name-servers 192.168.15.x, 192.168.31.1, 172.31.0.1;
+option domain-name-servers <YOUR IP addresses>;
 ```
-Make sure to replace `192.168.15.x` with the correct IP addresses.
 
 10. Add the HMAC-MD5 key for secure DHCP updates by inserting the following lines:
 ```
