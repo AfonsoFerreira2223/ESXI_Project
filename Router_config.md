@@ -23,8 +23,9 @@ Go to esxi- edit- then pick the connect box on the datasotre iso section (this i
 
 Configuring the interfaces on router:
 
-
-> nano /etc/network/interfaces
+´´´
+nano /etc/network/interfaces
+´´´
 
 Once you are here, copy paste this (alter the Ip addresses to suit your defined ranges):
 
@@ -72,11 +73,14 @@ iface ens256 inet static
 
 ## -----------------------------
 
+```
 
-> systemctl restart networking
-> 
-> reboot
->ip a
+systemctl restart networking
+reboot
+ip a
+
+```
+
 
 Your interfaces should now have the respective IP add assigned to them
 
