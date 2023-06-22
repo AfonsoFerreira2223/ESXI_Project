@@ -155,12 +155,19 @@ Then verify the changes by running the command:
 sysctl -p
 ```
 
+
+## DHCP:
+
+
 Install the DHCP server package by running the following command:
+
+
 ```
 apt install -y isc-dhcp-server
 ```
 
 Edit the DHCP server configuration file `/etc/dhcp/dhcpd.conf`. Change the domain name to your desired value using the following line:
+
 ```
 option domain-name "your_domain_name";
 ```
@@ -200,6 +207,9 @@ INTERFACESv4="(Include the names of your desired interfaces)"
 ```
 
 In this case, I am using interfaces ens192, 224 and 256
+
+
+
 
 
 ## Configuring NFtables
@@ -552,7 +562,7 @@ Now to create the certificates run the following commands
 ./easyrsa --subject-alt-name=DNS:enta.pt gen-req enta.pt nopass
 ./easyrsa --subject-alt-name=DNS:enta.pt sign-req server enta.pt nopass
 ./easyrsa --subject-alt-name="DNS:www.enta.pt" gen-req www.enta.pt nopass
-./easyrsa --subject-alt-name="DNS:smpt.enta.pt" gen-req smtp.enta.pt nopass
+./easyrsa --subject-alt-name="DNS:smtp.enta.pt" gen-req smtp.enta.pt nopass
 ./easyrsa --subject-alt-name="DNS:pop.enta.pt" gen-req pop.enta.pt nopass
 ./easyrsa sign-req server www.enta.pt
 ./easyrsa sign-req server pop.enta.pt
