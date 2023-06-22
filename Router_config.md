@@ -560,6 +560,9 @@ Now to create the certificates run the following commands
 scp pki/issued/www.enta.pt.crt  afonsodmz@172.31.0.100
 ```
 
-Replace the <afonsodmz@Ip> with your dmz name and IP address
+Replace the <afonsodmz@_Ip> with your dmz name and IP address
+
+
+
 
 
