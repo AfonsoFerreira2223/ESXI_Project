@@ -9,17 +9,71 @@ su -
 
 ## -----------------------------
 
-```
-apt update
-apt install resolvconf
-```
+
+### At any point during installations:
 
 It may ask you to insert the CD-ROM in order to download the packages
 
-Go to esxi- edit- then pick the connect box on the datasotre iso section (this is where the package is included)
+Go to esxi- edit- then pick the connect box on the datastore iso section (this is where the package is included)
 
 
 ![image](https://github.com/AfonsoFerreira2223/ESXI_Project/assets/114146560/1a186dad-89c3-46d4-a66b-09bd58600d5a)
+
+
+### Configuring the router:
+
+
+First of all, make sure you can download packages:
+
+```
+apt-cdrom add
+
+```
+
+Now go to
+
+
+```
+nano /etc/apt/sources.list
+```
+
+And allow the machine to trust packages from the cd-rom by adding ```[trusted=yes]```
+
+
+For example:
+
+```
+# deb cdrom:[Debian GNU/Linux 11.7.0 _Bullseye_ - Official amd64 BD Binary-1 20230429-11:50]/ bullseye contrib main
+
+deb [trusted=yes] cdrom:[Debian GNU/Linux 11.7.0 _Bullseye_ - Official amd64 BD Binary-4 20230429-11:50]/ bullseye contrib main
+deb [trusted=yes] cdrom:[Debian GNU/Linux 11.7.0 _Bullseye_ - Official amd64 BD Binary-3 20230429-11:50]/ bullseye contrib main
+deb [trusted=yes] cdrom:[Debian GNU/Linux 11.7.0 _Bullseye_ - Official amd64 BD Binary-2 20230429-11:50]/ bullseye contrib main
+deb [trusted=yes] cdrom:[Debian GNU/Linux 11.7.0 _Bullseye_ - Official amd64 BD Binary-1 20230429-11:50]/ bullseye contrib main
+
+deb http://security.debian.org/debian-security bullseye-security main contrib
+deb-src http://security.debian.org/debian-security bullseye-security main contrib
+
+# bullseye-updates, to get updates before a point release is made;
+# see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
+# A network mirror was not selected during install.  The following entries
+# are provided as examples, but you should amend them as appropriate
+# for your mirror of choice.
+#
+# deb http://deb.debian.org/debian/ bullseye-updates main contrib
+# deb-src http://deb.debian.org/debian/ bullseye-updates main contrib
+```
+
+
+
+
+
+
+
+```
+apt update
+apt install resolvconf
+
+```
 
 
 ## -----------------------------
@@ -114,10 +168,11 @@ option domain-name "your_domain_name";
 
 Specify the IP addresses of the domain name servers and interfaces by adding the following line:
 ```
-option domain-name-servers `YOUR IP addresses`;
+option domain-name-servers (YOUR IP addresses);
 ```
 
 Add the HMAC-MD5 key for secure DHCP updates by inserting the following lines:
+
 ```
 key DHCP_UPDATER {
     algorithm HMAC-MD5.SIG-ALG.REG.INT;
@@ -133,22 +188,21 @@ subnet 192.168.31.0 netmask 255.255.255.0 {
     option broadcast-address 192.168.31.255;
 }
 ```
-Repeat this step for the `172.31.0.0/24` subnet or any other subnets you need.
 
-12. If you want to assign specific IP addresses to certain hosts, you can add the following lines to the configuration file. Adjust the values accordingly:
+
+
+
+Open the `/etc/default/isc-dhcp-server` file and add the interfaces you want the DHCP server to listen on. Modify the following line:
+
+
 ```
-host 172.31.0.100 {
-    hardware ethernet 00:50:56:86:7c:cf;
-    fixed-address 172.31.0.100;
-    option routers 172.31.0.1;
-    option broadcast-address 172.31.0.255;
-}
+INTERFACESv4="(Include the names of your desired interfaces)"
 ```
 
-13. Open the `/etc/default/isc-dhcp-server` file and add the interfaces you want the DHCP server to listen on. Modify the following line:
-```
-INTERFACESv4="ens192 ens224 ens256"
-```
-Include the names of your desired interfaces
+In this case, I am using interfaces ens192, 224 and 256
+
+
+
+
 
 
