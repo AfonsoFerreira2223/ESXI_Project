@@ -83,3 +83,67 @@ Your interfaces should now have the respective IP add assigned to them
 ![Captura de ecrã de 2023-06-22 10-03-27](https://github.com/AfonsoFerreira2223/ESXI_Project/assets/114146560/a7e9c44d-a21c-444c-8887-fbd67bd0335a)
 
 
+Make sure to note down the MAC addresses of your interfaces and match them with the correct IP addresses in the ESXi configuration.
+
+
+## Enable IP forwarding by editing the `/etc/sysctl.conf` file. Add the following line:
+
+net.ipv4.ip_forward=1
+
+
+Then apply the changes by running the command:
+```
+sysctl -p
+```
+
+7. Install the DHCP server package by running the following command:
+```
+apt install -y isc-dhcp-server
+```
+
+8. Edit the DHCP server configuration file `/etc/dhcp/dhcpd.conf`. Change the domain name to your desired value using the following line:
+```
+option domain-name "your_domain_name";
+```
+
+9. Specify the IP addresses of the domain name servers and interfaces by adding the following line:
+```
+option domain-name-servers 192.168.15.x, 192.168.31.1, 172.31.0.1;
+```
+Make sure to replace `192.168.15.x` with the correct IP addresses.
+
+10. Add the HMAC-MD5 key for secure DHCP updates by inserting the following lines:
+```
+key DHCP_UPDATER {
+    algorithm HMAC-MD5.SIG-ALG.REG.INT;
+    secret "pRP5FapFoJ95JEL06sv4PQ==";
+};
+```
+
+11. Configure DHCP for each subnet by adding the appropriate subnet configuration. Here's an example for `192.168.31.0/24`:
+```
+subnet 192.168.31.0 netmask 255.255.255.0 {
+    range 192.168.31.128 192.168.31.191;
+    option routers 192.168.31.1;
+    option broadcast-address 192.168.31.255;
+}
+```
+Repeat this step for the `172.31.0.0/24` subnet or any other subnets you need.
+
+12. If you want to assign specific IP addresses to certain hosts, you can add the following lines to the configuration file. Adjust the values accordingly:
+```
+host 172.31.0.100 {
+    hardware ethernet 00:50:56:86:7c:cf;
+    fixed-address 172.31.0.100;
+    option routers 172.31.0.1;
+    option broadcast-address 172.31.0.255;
+}
+```
+
+13. Open the `/etc/default/isc-dhcp-server` file and add the interfaces you want the DHCP server to listen on. Modify the following line:
+```
+INTERFACESv4="ens192 ens224 ens256"
+```
+Include the names of your desired interfaces
+
+
