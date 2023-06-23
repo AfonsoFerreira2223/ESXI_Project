@@ -556,21 +556,81 @@ Set the variables according to your domain
 Now to create the certificates run the following commands
 
 
-```
-./easyrsa init-pki
-./easyrsa build-ca nopass
-./easyrsa --subject-alt-name=DNS:enta.pt gen-req enta.pt nopass
-./easyrsa --subject-alt-name=DNS:enta.pt sign-req server enta.pt nopass
-./easyrsa --subject-alt-name="DNS:www.enta.pt" gen-req www.enta.pt nopass
+cd /etc/easy-rsa/
 ./easyrsa --subject-alt-name="DNS:smtp.enta.pt" gen-req smtp.enta.pt nopass
 ./easyrsa --subject-alt-name="DNS:pop.enta.pt" gen-req pop.enta.pt nopass
-./easyrsa sign-req server www.enta.pt
-./easyrsa sign-req server pop.enta.pt
-./easyrsa sign-req server smtp.enta.pt
-scp pki/issued/www.enta.pt.crt  afonsodmz@172.31.0.100
+./easyrsa --subject-alt-name="DNS:smtp.enta.pt" sign-req server smtp.enta.pt nopass
+./easyrsa --subject-alt-name="DNS:pop.enta.pt" sign-req server pop.enta.pt nopass
+cd pki/issued/
+cp pop.enta.pt.crt /etc/ssl/crts
+cp smtp.enta.pt.crt /etc/ssl/crts
+cd ../private/
+cp pop.enta.pt.key /etc/ssl/private/
+cp smtp.enta.pt.key /etc/ssl/private/
+chown -R root:ssl-cert /etc/ssl/private/pop.enta.pt.key
+apt-get install exim4-daemon-heavy sasl2-bin dovecot-pop3d dovecot-imapd easy-rsa
+cd ..
+cd ..
+addgroup --system ssl-cert
+addgroup --system ssl-cert
+chown -R root:ssl-cert /etc/ssl/private
+chmod 710 /etc/ssl/private
+chmod 440 /etc/ssl/private/*
+adduser Debian-exim ssl-cert
+adduser Debian-exim sasl
+adduser dovecot ssl-cert
+dpkg-reconfigure exim4-config
 ```
 
-Replace the <afonsodmz@_Ip> with your dmz name and IP address
+
+```
+nano /etc/default/saslauthd
+```
+
+
+```
+nano /etc/default/saslauthd
+```
+
+```
+nano /etc/dovecot/conf.d/10-ssl.conf
+```
+
+
+```
+nano /etc/dovecot/conf.d/10-auth.conf
+```
+
+```
+nano /etc/dovecot/conf.d/10-mail.conf
+```
+
+```
+nano /etc/exim4/exim4.conf.template
+```
+
+```
+nano /etc/exim4/exim4.conf.template
+```
+
+
+```
+echo "tls_on_connect_ports = 465" > /etc/exim4/exim4.conf.localmacros
+```
+
+```
+nano /etc/default/exim4
+```
+
+```
+cd /etc/skel
+mkdir Maildir && cd Maildir && maildirmake.dovecot .
+systemctl enable saslauthd exim4 dovecot
+systemctl restart saslauthd exim4 dovecot
+systemctl status saslauthd exim4 dovecot
+systemctl status saslauthd exim4 dovecot
+```
+
 
 
 
