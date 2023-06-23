@@ -187,16 +187,46 @@ key DHCP_UPDATER {
 ```
 
 
-Configure DHCP for each subnet by adding the appropriate subnet configuration. Here's an example for `192.168.31.0/24`:
+This is an example of my configuration
+
+
 ```
 subnet 192.168.31.0 netmask 255.255.255.0 {
-    range 192.168.31.128 192.168.31.191;
-    option routers 192.168.31.1;
-    option broadcast-address 192.168.31.255;
+  range 192.168.31.128 192.168.31.191;
+  option routers 192.168.31.1;
+  option broadcast-address 192.168.31.255;
 }
+
+subnet 172.31.0.0 netmask 255.255.255.0 {
+  range 172.31.0.64 172.31.0.95;
+  option routers 172.31.0.1;
+  option broadcast-address 172.31.0.255;
+}
+
+host 172.31.0.64 {
+  hardware ethernet 00:50:56:86:13:6f;
+  fixed-address 172.31.0.64;
+  option routers 172.31.0.1;
+  option broadcast-address 172.31.0.255;
+}
+
+zone enta.pt {
+         primary 127.0.0.1;
+         key DHCP_UPDATER;
+}
+
+zone 31.172.in-addr.arpa. {
+         primary 127.0.0.1;
+         key DHCP_UPDATER;
+}
+
+zone 31.168.192.in-addr.arpa. {
+         primary 127.0.0.1;
+         key DHCP_UPDATER;
+}
+
+
 ```
-
-
 
 
 Open the `/etc/default/isc-dhcp-server` file and add the interfaces you want the DHCP server to listen on. Modify the following line:
