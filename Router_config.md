@@ -556,6 +556,7 @@ Set the variables according to your domain
 Now to create the certificates run the following commands
 
 
+```
 cd /etc/easy-rsa/
 ./easyrsa --subject-alt-name="DNS:smtp.enta.pt" gen-req smtp.enta.pt nopass
 ./easyrsa --subject-alt-name="DNS:pop.enta.pt" gen-req pop.enta.pt nopass
